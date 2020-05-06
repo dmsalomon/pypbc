@@ -623,6 +623,17 @@ int Element_init(PyObject *py_self, PyObject *args, PyObject *kwargs) {
 					bytesize = ((s_str >> 1) - 1) >> 1;
 					sscanf(&str[s_str - 1], "%2hhx", &byteval[bytesize]);
 					byteval[bytesize] &= 0x01;
+				} else if (strncmp(str, "0x", 2) == 0) {
+					bytesize = ((s_str >> 1) - 1);
+						for (ii = 0 ; ii < bytesize ; ii++ ) {
+						sscanf(&str[2+(2*ii)], "%2hhx", &byteval[ii]);
+					}
+					//printf("compressed\n");
+					ii = element_from_bytes(self->pbc_element, byteval);
+					// you're ready!
+					self->ready = 1;
+					// we're clear
+					return 0;
 				}
 				for (ii = 0 ; ii < bytesize ; ii++ ) {
 					sscanf(&str[2+(2*ii)], "%2hhx", &byteval[ii]);
