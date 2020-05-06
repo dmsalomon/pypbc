@@ -151,7 +151,7 @@ int Parameters_init(Parameters *self, PyObject *args, PyObject *kwargs) {
 	char *kwds[] = {"param_string", "n", "qbits", "rbits", "short", NULL};
 	// if the parameters are given as a string
 	char *param_string = NULL;
-	size_t s_len = 0;
+	Py_ssize_t s_len = 0;
 	// for type A1 and F fields, F if short is provided and True
 	PyObject *n = NULL;
 	// for type A and E fields, E if short is provided and True
@@ -1251,7 +1251,7 @@ Py_ssize_t  Element_len(PyObject *a) {
 	Element *py_ele = (Element*)a;
 	if (py_ele->group == Zr) {
 		PyErr_SetString(PyExc_TypeError, "Elements of type Zr have no len()");
-		return NULL;
+		return -1;
 	}
 	
 	// query the element dimension
